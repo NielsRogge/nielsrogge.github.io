@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 --- 
 
-I am Niels, 24 years old, living in Belgium.
+I am Niels, 25 years old, living in Belgium.
 
 I studied [Business and Information Systems Engineering](https://feb.kuleuven.be/eng/prospective-students/master-of-business-and-information-systems-engineering) (a Master of Science) at KU Leuven. I graduated magna cum laude (83%). This programme is a more technical version of Business Engineering. Besides business-oriented courses like management accounting, economics, and finance, I got technical courses including introduction to object-oriented programming, operating systems, computer networks, and so on. 
 
@@ -17,6 +17,13 @@ My master thesis was about deep learning and natural language processing (my two
 As I wanted to dive more deeply into the technical bits of deep learning, I decided to start working as an Applied AI Researcher at [Howest](https://www.howest.be/en), where I apply state-of-the-art deep learning algorithms (mostly NLP) for all kinds of business cases. I'm involved in several projects supported by [VLAIO](https://vlaio.be/nl), the Flemish Institute for Innovation and Entrepreneurship. Besides this, I'm consulting several companies to assist them in applying NLP. 
 
 During my projects at Howest, I used HuggingFace Transformers more and more. However, I didn't fully understood the library and how the models/tokenizers are to be used. In August 2020, as a summer project (and as a learning opportunity), I decided to challenge myself: implement [TAPAS](https://arxiv.org/abs/2004.02349), an algorithm built by Google, and port it to HuggingFace Transformers to make it available for everyone. This was quite a challenge, as the original algorithm was written in Tensorflow 1 and had [lots of utility files](https://github.com/google-research/tapas). Moreover, the data format that was used by the Google authors of TAPAS were [Protocol Buffers](https://developers.google.com/protocol-buffers), which is not the easiest format. My goal was to implement the algorithm in PyTorch. However, after several months of coding, diving into the Github repo, I was satisfied with my implementation and opened up a pull request on the Transformers repo. After some time, my PR got merged! Moreover, HuggingFace released a new version of the Transformers repo (4.1.1) with TAPAS on the frontpage. They also [mentioned my name](https://twitter.com/huggingface/status/1339620376503066630) on their social media, stating "incredible implementation of the model and tokenizer by NielsRogge" :) Moreover, the people of HuggingFace asked me to become part of the core contributors team of HuggingFace :) After that, I worked on several other models, including [improving](https://github.com/huggingface/transformers/pull/9476) [LayoutLM](https://arxiv.org/abs/1912.13318) by Microsoft Research, [adding](https://github.com/huggingface/transformers/pull/10950) the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) by Google AI and [adding](https://github.com/huggingface/transformers/pull/11056) [Data-efficient Image Transformers (DeiT)](https://arxiv.org/abs/2012.12877) by Facebook AI to the library. 
+
+Update: I've now also added the following algorithms to the library:
+- LUKE by Studio Ousia, capable of doing state-of-the-art relation extraction and other tasks involving reasoning about entities in text
+- DEtection TRansformers (DETR) by Facebook AI, the first successful approach of applying Transformers at the task of object detection/panoptic segmentation
+- CANINE by Google AI, a tokenizer-free model (a Transformer which directly operates at a character level)
+- BEiT by Microsoft Research, a self-supervised Vision Transformer (by cleverly combining it with the encoder of the VQ-VAE of OpenAI's DALL-E)
+- LayoutLMv2 by Microsoft Research, an improved version of LayoutLM, a Transformer capable of understanding scanned documents such as invoices, forms, handwritten text
 
 ### Technologies
 At the time of writing, I'm mostly working with:
