@@ -49,11 +49,17 @@ This site features a custom dark theme with:
 
    The site will automatically rebuild when you make changes to files!
 
-### Alternative: Using github-pages gem
+### Alternative: Quick Install
+If you already have Ruby and don't want to use Bundler:
 ```bash
 gem install github-pages
 jekyll serve
 ```
+
+### Troubleshooting
+- **Port already in use**: Add `--port 4001` to use a different port
+- **Build warnings about 'gems' config**: This is just a deprecation warning and can be ignored
+- **Permission errors**: Try using `sudo` before gem install commands (macOS/Linux)
 
 ## 📝 Adding Blog Posts
 
