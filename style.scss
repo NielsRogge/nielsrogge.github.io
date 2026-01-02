@@ -13,101 +13,258 @@
 /* BASE RULES */
 /**************/
 
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 html {
   font-size: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-	background: $white;
-  font: 18px/1.4 $helvetica;
-  color: $darkGray;
+  background: $bg-primary;
+  font: 18px/1.7 $sans;
+  color: $text-primary;
+  position: relative;
+  overflow-x: hidden;
+
+  // Animated grid background
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+    animation: gridMove 20s linear infinite;
+  }
+
+  // Subtle scanline effect
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      transparent 50%,
+      rgba(0, 0, 0, 0.05) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.3;
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
 }
 
 .container {
   margin: 0 auto;
-  max-width: 740px;
-  padding: 0 10px;
+  max-width: 900px;
+  padding: 0 30px;
   width: 100%;
+  position: relative;
+  z-index: 2;
+
+  @include mobile {
+    padding: 0 20px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $helveticaNeue;
-  color: $darkerGray;
-  font-weight: bold;
-
-  line-height: 1.7;
-  margin: 1em 0 15px;
+  font-family: $mono;
+  color: $text-primary;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 1.5em 0 0.75em;
   padding: 0;
+  letter-spacing: -0.02em;
 
   @include mobile {
-    line-height: 1.4;
+    line-height: 1.35;
   }
 }
 
 h1 {
-  font-size: 30px;
+  font-size: 2.5em;
+  background: linear-gradient(135deg, $accent-cyan 0%, $accent-coral 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 0;
+
   a {
-    color: inherit;
+    background: linear-gradient(135deg, $accent-cyan 0%, $accent-coral 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 0.8;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  @include mobile {
+    font-size: 2em;
   }
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 1.8em;
+  color: $accent-cyan;
+  position: relative;
+  padding-left: 20px;
+
+  &::before {
+    content: '//';
+    position: absolute;
+    left: 0;
+    color: $accent-coral;
+    font-weight: 400;
+  }
+
+  @include mobile {
+    font-size: 1.5em;
+  }
 }
 
 h3 {
-  font-size: 20px;
+  font-size: 1.4em;
+  color: $text-primary;
+
+  @include mobile {
+    font-size: 1.25em;
+  }
 }
 
 h4 {
-  font-size: 18px;
-  color: $gray;
+  font-size: 1.1em;
+  color: $text-secondary;
+  font-weight: 600;
 }
 
 p {
-  margin: 15px 0;
+  margin: 1.2em 0;
+  font-weight: 400;
+  color: $text-secondary;
 }
 
 a {
-  color: $blue;
+  color: $accent-cyan;
   text-decoration: none;
-	cursor: pointer;
-  &:hover, &:active {
-    color: $blue;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, $accent-cyan, $accent-coral);
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    color: $accent-coral;
+
+    &::after {
+      width: 100%;
+    }
   }
 }
 
 ul, ol {
-  margin: 15px 0;
+  margin: 1.5em 0;
   padding-left: 30px;
+  color: $text-secondary;
 }
 
 ul {
-  list-style-type: disc;
+  list-style-type: none;
+
+  li {
+    position: relative;
+    padding-left: 1.5em;
+    margin: 0.75em 0;
+
+    &::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: $accent-cyan;
+      font-weight: bold;
+    }
+  }
 }
 
 ol {
-  list-style-type: decimal;
+  list-style-type: none;
+  counter-reset: item;
+
+  li {
+    position: relative;
+    padding-left: 2em;
+    margin: 0.75em 0;
+    counter-increment: item;
+
+    &::before {
+      content: counter(item) ".";
+      position: absolute;
+      left: 0;
+      color: $accent-cyan;
+      font-weight: 600;
+      font-family: $mono;
+    }
+  }
 }
 
 ol ul, ul ol, ul ul, ol ol {
-  margin: 0;
-}
-
-ul ul, ol ul {
-  list-style-type: circle;
+  margin: 0.5em 0;
 }
 
 em, i {
   font-style: italic;
+  color: $text-primary;
 }
 
 strong, b {
-  font-weight: bold;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+code {
+  font-family: $mono;
+  font-size: 0.9em;
+  background: $bg-card;
+  padding: 0.2em 0.5em;
+  border-radius: 4px;
+  color: $accent-cyan;
+  border: 1px solid rgba(0, 212, 255, 0.2);
 }
 
 img {
   max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 // Fixes images in popup boxes from Google Translate
@@ -116,18 +273,22 @@ img {
 }
 
 .date {
-  font-style: italic;
-  color: $gray;
+  font-style: normal;
+  color: $text-muted;
+  font-family: $mono;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 // Specify the color of the selection
 ::-moz-selection {
-  color: $black;
-  background: $lightGray;
+  color: $bg-primary;
+  background: $accent-cyan;
 }
 ::selection {
-  color: $black;
-  background: $lightGray;
+  color: $bg-primary;
+  background: $accent-cyan;
 }
 
 // Nicolas Gallagher's micro clearfix hack
@@ -151,88 +312,159 @@ img {
 //
 
 .wrapper-masthead {
-  margin-bottom: 50px;
+  margin-bottom: 80px;
+  background: rgba(20, 22, 46, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $accent-cyan, $accent-coral, transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @include mobile {
+    margin-bottom: 50px;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .masthead {
-  padding: 20px 0;
-  border-bottom: 1px solid $lightGray;
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include mobile {
+    flex-direction: column;
+    text-align: center;
+    padding: 25px 0;
+  }
+}
+
+.site-avatar {
+  width: 80px;
+  height: 80px;
+  margin-right: 25px;
+  flex-shrink: 0;
+  position: relative;
+
+  @include mobile {
+    margin: 0 auto 20px;
+  }
+
+  img {
+    border-radius: 50%;
+    border: 3px solid $accent-cyan;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 212, 255, 0.6), 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+.site-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   @include mobile {
     text-align: center;
   }
 }
 
-.site-avatar {
-  float: left;
-  width: 70px;
-  height: 70px;
-  margin-right: 15px;
-
-  @include mobile {
-    float: none;
-    display: block;
-    margin: 0 auto;
-  }
-
-  img {
-    border-radius: 5px;
-  }
-}
-
-.site-info {
-  float: left;
-
-  @include mobile {
-    float: none;
-    display: block;
-    margin: 0 auto;
-  }
-}
-
 .site-name {
-  margin: 0;
-  color: $darkGray;
+  margin: 0 0 8px 0;
+  color: $text-primary;
   cursor: pointer;
-  font-family: $helveticaNeue;
-  font-weight: 300;
-  font-size: 28px;
-  letter-spacing: 1px;
+  font-family: $mono;
+  font-weight: 700;
+  font-size: 1.8em;
+  letter-spacing: -0.02em;
+
+  a {
+    background: linear-gradient(135deg, $accent-cyan 0%, $accent-coral 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  @include mobile {
+    font-size: 1.5em;
+  }
 }
 
 .site-description {
-  margin: -5px 0 0 0;
-  color: $gray;
-  font-size: 16px;
+  margin: 0;
+  color: $text-secondary;
+  font-size: 0.95em;
+  line-height: 1.5;
+  font-family: $sans;
+  font-weight: 400;
 
   @include mobile {
-    margin: 3px 0;
+    font-size: 0.9em;
   }
 }
 
 nav {
-  float: right;
-  margin-top: 23px; // @TODO: Vertically middle align
-  font-family: $helveticaNeue;
-  font-size: 18px;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  font-family: $mono;
+  font-size: 0.95em;
 
   @include mobile {
-    float: none;
-    margin-top: 9px;
-    display: block;
-    font-size: 16px;
+    margin-top: 20px;
+    gap: 15px;
   }
 
   a {
-    margin-left: 20px;
-    color: $darkGray;
-    text-align: right;
-    font-weight: 300;
-    letter-spacing: 1px;
+    color: $text-secondary;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &::after {
+      display: none;
+    }
+
+    &:hover {
+      color: $accent-cyan;
+      border-color: $accent-cyan;
+      background: rgba(0, 212, 255, 0.05);
+      transform: translateY(-2px);
+    }
 
     @include mobile {
-      margin: 0 10px;
-      color: $blue;
+      padding: 6px 12px;
+      font-size: 0.9em;
     }
   }
 }
@@ -242,45 +474,194 @@ nav {
 //
 
 .posts > .post {
-  padding-bottom: 2em;
-  border-bottom: 1px solid $lightGray;
+  padding: 35px;
+  margin-bottom: 40px;
+  background: $bg-card;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, $accent-cyan, $accent-coral);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 212, 255, 0.1);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  @include mobile {
+    padding: 25px;
+    margin-bottom: 30px;
+  }
 }
 
 .posts > .post:last-child {
-  padding-bottom: 1em;
-  border-bottom: none;
+  margin-bottom: 40px;
 }
 
 .post {
   blockquote {
-    margin: 1.8em .8em;
-    border-left: 2px solid $gray;
-    padding: 0.1em 1em;
-    color: $gray;
-    font-size: 22px;
+    margin: 1.8em 0;
+    border-left: 4px solid $accent-cyan;
+    padding: 1em 1.5em;
+    background: rgba(0, 212, 255, 0.05);
+    color: $text-primary;
+    font-size: 1.1em;
     font-style: italic;
+    border-radius: 0 8px 8px 0;
+    position: relative;
+
+    &::before {
+      content: '"';
+      font-size: 4em;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      color: $accent-cyan;
+      opacity: 0.2;
+      font-family: Georgia, serif;
+    }
   }
 
   .comments {
-    margin-top: 10px;
+    margin-top: 30px;
   }
 
   .read-more {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid $accent-cyan;
+    color: $accent-cyan;
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-family: $mono;
+
+    &:hover {
+      background: $accent-cyan;
+      color: $bg-primary;
+      transform: translateX(5px);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+
+      &::after {
+        width: 0;
+      }
+    }
+  }
+
+  .entry {
+    color: $text-secondary;
+    line-height: 1.8;
   }
 }
 
 .wrapper-footer {
-  margin-top: 50px;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  background-color: $lightGray;
+  margin-top: 100px;
+  border-top: 2px solid rgba(0, 212, 255, 0.1);
+  background: rgba(20, 22, 46, 0.6);
+  backdrop-filter: blur(10px);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $accent-cyan, $accent-coral, transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @include mobile {
+    margin-top: 60px;
+  }
 }
 
 footer {
-  padding: 20px 0;
+  padding: 40px 0;
   text-align: center;
+  color: $text-muted;
+  font-size: 0.9em;
+}
+
+//
+// .page
+//
+
+.page {
+  padding: 40px;
+  background: $bg-card;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, $accent-cyan, $accent-coral);
+    border-radius: 12px 12px 0 0;
+  }
+
+  @include mobile {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .entry {
+    color: $text-secondary;
+    line-height: 1.8;
+
+    h2, h3, h4 {
+      margin-top: 2em;
+    }
+
+    a {
+      font-weight: 500;
+    }
+  }
+}
+
+// Social icons styling
+.svg-icon {
+  transition: all 0.3s ease;
+  filter: brightness(0.9);
+
+  &:hover {
+    filter: brightness(1.2);
+    transform: translateY(-3px);
+  }
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS

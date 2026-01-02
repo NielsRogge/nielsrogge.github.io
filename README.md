@@ -1,4 +1,75 @@
-> March, 2016: If you're on an old version of Jekyll Now and run into a) build warnings or b) syntax highlighting issues caused by [Jekyll 3 and GitHub Pages updates](https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0), just :sparkles:[update your _config.yml](https://github.com/barryclark/jekyll-now/pull/445/files):sparkles: and you'll be set!
+# Niels Rogge - Personal Website
+
+Personal website and blog built with Jekyll, featuring a modern dark theme with technical editorial aesthetics.
+
+## 🎨 Modern Design (2026)
+
+This site features a custom dark theme with:
+- **Animated grid background** with subtle tech aesthetics
+- **Cyan & coral gradient accents** on a deep charcoal base
+- **JetBrains Mono** for headers (perfect for developer aesthetics)
+- **Manrope** for body text (clean, modern readability)
+- **Card-based layouts** with depth and smooth hover animations
+- **Modern syntax highlighting** for code blocks
+- **Glass-morphism effects** in the navigation
+
+## 🚀 Running Locally
+
+### Prerequisites
+- Ruby (2.5.0 or higher)
+- Bundler gem
+
+### Setup & Run
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/NielsRogge/nielsrogge.github.io.git
+   cd nielsrogge.github.io
+   ```
+
+2. **Install dependencies**
+   ```bash
+   # If you don't have bundler installed
+   gem install bundler
+
+   # Install Jekyll and dependencies
+   bundle install
+   ```
+
+3. **Run the local server**
+   ```bash
+   bundle exec jekyll serve
+   ```
+
+4. **View in browser**
+   Open your browser and navigate to:
+   ```
+   http://localhost:4000
+   ```
+
+   The site will automatically rebuild when you make changes to files!
+
+### Alternative: Using github-pages gem
+```bash
+gem install github-pages
+jekyll serve
+```
+
+## 📝 Adding Blog Posts
+
+Create a new file in `_posts/` with the format: `YYYY-MM-DD-title.md`
+
+Example:
+```markdown
+---
+layout: post
+title: My New Post
+---
+
+Your content here...
+```
+
+---
 
 # Jekyll Now
 
